@@ -3,7 +3,6 @@ import pandas as pd
 
 token = token_number
 bot = telepot.Bot(token)
-#bot.setWebhook()
 
 #------------------------printer----------------------------
 
