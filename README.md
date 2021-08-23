@@ -41,7 +41,7 @@
 </br>
 ### **포스터**
 
-상영 중인 영화의 포스터를 보여줍니다. 영화의 일부분만 입력해도 포스터를 볼 수 있습니다.
+상영 중인 영화의 포스터를 보여줍니다. 영화 제목의 일부분만 입력해도 포스터를 볼 수 있습니다.
 
 ![poster](https://blog.kakaocdn.net/dn/eyLL2a/btrcOioybue/4zoN18T5ubYXFSQWhOZVA0/img.gif)
 </br>
