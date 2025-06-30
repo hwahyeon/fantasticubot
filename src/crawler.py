@@ -2,7 +2,6 @@ from selenium import webdriver
 from datetime import date, timedelta, datetime
 from bs4 import BeautifulSoup
 from apscheduler.schedulers.blocking import BlockingScheduler
-import re
 import pandas as pd
 import os
 
