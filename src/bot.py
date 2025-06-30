@@ -25,17 +25,18 @@ def printer():
     except FileNotFoundError:
         return "상영표가 아직 준비되지 않았습니다."
 
-#------------------------poster---------------------------
-
-def poster(name, id):
-    df = pd.read_pickle("df_mov.pkl")
-    str_expr ="title.str.contains("+"'"+str(name)+"'"+", case=False)" # False 대소문자 상관없이
+# Send movie poster by title search
+def poster(name, chat_id):
+    df = pd.read_pickle(PICKLE_PATH)
+    str_expr = f"title.str.contains('{name}', case=False)"
     df_q = df.query(str_expr)
+
     try:
         res_url = df_q["url"].iloc[0]
-        bot.sendPhoto(id, photo=str(res_url))
+        bot.sendPhoto(chat_id, photo=res_url)
     except:
-        bot.sendMessage(id, "다른 검색어를 넣어 보실래요?")
+        bot.sendMessage(chat_id, "다른 검색어를 넣어 보실래요?")
+
 
 # -------------------------도움말 Markdown ---------------------
 with open(os.path.join(HELP_PATH, "texts", "help.md"), "r", encoding="utf-8") as f:
