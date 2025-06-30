@@ -38,7 +38,7 @@ def poster(name, chat_id):
         bot.sendMessage(chat_id, "다른 검색어를 넣어 보실래요?")
 
 
-# -------------------------도움말 Markdown ---------------------
+# Load help text from file
 with open(os.path.join(HELP_PATH, "texts", "help.md"), "r", encoding="utf-8") as f:
     text = f.read()
 
