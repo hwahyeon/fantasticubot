@@ -5,6 +5,18 @@ import os
 token = token_number
 bot = telepot.Bot(token)
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+
+TXT_PATH = os.path.join(DATA_DIR, "movie.txt")
+PICKLE_PATH = os.path.join(DATA_DIR, "df_mov.pkl")
+
+TEXTS_DIR = os.path.join(BASE_DIR, "texts")
+HELP_PATH = os.path.join(TEXTS_DIR, "help.md")
+
+
+
 #------------------------printer----------------------------
 
 def printer():
@@ -26,9 +38,7 @@ def poster(name, id):
         bot.sendMessage(id, "다른 검색어를 넣어 보실래요?")
 
 # -------------------------도움말 Markdown ---------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-with open(os.path.join(BASE_DIR, "texts", "help.md"), "r", encoding="utf-8") as f:
+with open(os.path.join(HELP_PATH, "texts", "help.md"), "r", encoding="utf-8") as f:
     text = f.read()
 
 #---------------------------텔레그램 메시지 봇----------------------------
