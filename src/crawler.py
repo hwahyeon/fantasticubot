@@ -11,6 +11,17 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TXT_PATH = os.path.join(BASE_DIR, "texts", "movie.txt")
 PICKLE_PATH = os.path.join(BASE_DIR, "df_mov.pkl")
 
+# Extract plain text from tag list
+def extract_text_from_tag(tag_list, class_name):
+    result = []
+    for tag in tag_list:
+        text = str(tag).replace(f'<p class="{class_name}">', '').replace('</p>', '')
+        result.append(text)
+    return result
+
+
+
+
 # ---------------------------crawler----------------------------
 def crawler():
     driver = webdriver.Chrome()
@@ -19,9 +30,10 @@ def crawler():
 
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    mv_tit = soup.find_all('p', class_='mv_tit')        # 이름 가져오기
-    stime = soup.find_all('p', class_='stime')          # 시작시간 가져오기
-    etime = soup.find_all('p', class_='etime')          # 종료시간 가져오기
+
+    mv_tit = extract_text_from_tag(soup.find_all('p', class_='mv_tit'), 'mv_tit')
+    stime = extract_text_from_tag(soup.find_all('p', class_='stime'), 'stime')
+    etime = extract_text_from_tag(soup.find_all('p', class_='etime'), 'etime')
     mdate = str(soup.find_all('strong', class_='on'))   # 현재 페이지 최신날짜
 
     # 불용어처리 및 BS4클래스 리스트화
