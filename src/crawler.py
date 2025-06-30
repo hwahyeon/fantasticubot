@@ -11,6 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TXT_PATH = os.path.join(BASE_DIR, "texts", "movie.txt")
 PICKLE_PATH = os.path.join(BASE_DIR, "df_mov.pkl")
 
+
 # Extract plain text from tag list
 def extract_text_from_tag(tag_list, class_name):
     result = []
@@ -18,6 +19,7 @@ def extract_text_from_tag(tag_list, class_name):
         text = str(tag).replace(f'<p class="{class_name}">', '').replace('</p>', '')
         result.append(text)
     return result
+
 
 # Generate header based on date information
 def get_date_header(date_info):
@@ -29,12 +31,14 @@ def get_date_header(date_info):
         return f"내일 {tomorrow.strftime('%Y-%m-%d')}의 시간표입니다.\n\n"
     return ""
 
+
 # Save text to file
 def save_to_file(text, path):
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
 
-# ---------------------------crawler----------------------------
+
+# Main crawler function
 def crawler():
     driver = webdriver.Chrome()
     driver.get(url)
@@ -60,6 +64,7 @@ def crawler():
 
     driver.quit()
 
+
 # Update poster data
 def pickle_url():
     url = 'https://www.indieartcinema.com/movie'
@@ -81,9 +86,11 @@ def pickle_url():
 
     driver.quit()
 
+
 # Scheduler intervals (unit: minutes, hours)
 CRAWLER_INTERVAL_MINUTES = 70
 PICKLE_UPDATE_HOURS = 12
+
 
 # Start the job scheduler
 def scheduler():
