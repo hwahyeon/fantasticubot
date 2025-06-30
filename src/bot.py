@@ -42,20 +42,20 @@ def poster(name, chat_id):
 with open(os.path.join(HELP_PATH, "texts", "help.md"), "r", encoding="utf-8") as f:
     text = f.read()
 
-#---------------------------텔레그램 메시지 봇----------------------------
+# Handle incoming Telegram messages
 def handle(msg):
-    if msg['text'] == "/start":
-        bot.sendMessage(msg['from']['id'], "안녕하세요? "+
-        "독립영화전용관 판타스틱 큐브 봇이에요. /help를 입력하면 도움이 될 거예요!")
-    elif msg['text'] == "상영표":
-        bot.sendMessage(msg['from']['id'], printer())
-    elif msg['text'] == "주소":
-        bot.sendMessage(msg['from']['id'], "<경기도 부천시 길주로210, 부천시청 1층 판타스틱큐브> \n 부천시청 안에 위치하고 있어요.")
-    elif msg['text'] == "연락처":
-        bot.sendMessage(msg['from']['id'], "판타스틱큐브 070-7713-0596")
-    elif msg['text'] == "/help":
-        bot.sendMessage(msg['from']['id'], text, parse_mode = 'Markdown', disable_web_page_preview=True)
+    chat_id = msg['from']['id']
+    text_in = msg['text']
+
+    if text_in == "/start":
+        bot.sendMessage(chat_id, "안녕하세요? 독립영화전용관 판타스틱 큐브 봇이에요. /help를 입력하면 도움이 될 거예요!")
+    elif text_in == "상영표":
+        bot.sendMessage(chat_id, printer())
+    elif text_in == "주소":
+        bot.sendMessage(chat_id, "<경기도 부천시 길주로210, 부천시청 1층 판타스틱큐브>\n부천시청 안에 위치하고 있어요.")
+    elif text_in == "연락처":
+        bot.sendMessage(chat_id, "판타스틱큐브 070-7713-0596")
+    elif text_in == "/help":
+        bot.sendMessage(chat_id, text, parse_mode="Markdown", disable_web_page_preview=True)
     else:
-        id = msg['from']['id']
-        name = msg['text']
-        poster(name, id)
+        poster(text_in, chat_id)
