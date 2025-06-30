@@ -19,8 +19,20 @@ def extract_text_from_tag(tag_list, class_name):
         result.append(text)
     return result
 
+# Generate header based on date information
+def get_date_header(date_info):
+    today = date.today()
+    tomorrow = today + timedelta(1)
+    if '오늘' in date_info:
+        return f"오늘 {today.strftime('%Y-%m-%d')}의 시간표입니다.\n\n"
+    elif '내일' in date_info:
+        return f"내일 {tomorrow.strftime('%Y-%m-%d')}의 시간표입니다.\n\n"
+    return ""
 
-
+# Save text to file
+def save_to_file(text, path):
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
 
 # ---------------------------crawler----------------------------
 def crawler():
@@ -31,64 +43,20 @@ def crawler():
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
-    mv_tit = extract_text_from_tag(soup.find_all('p', class_='mv_tit'), 'mv_tit')
-    stime = extract_text_from_tag(soup.find_all('p', class_='stime'), 'stime')
-    etime = extract_text_from_tag(soup.find_all('p', class_='etime'), 'etime')
-    mdate = str(soup.find_all('strong', class_='on'))   # 현재 페이지 최신날짜
+    titles = extract_text_from_tag(soup.find_all('p', class_='mv_tit'), 'mv_tit')
+    starts = extract_text_from_tag(soup.find_all('p', class_='stime'), 'stime')
+    ends = extract_text_from_tag(soup.find_all('p', class_='etime'), 'etime')
+    date_info = str(soup.find_all('strong', class_='on'))
 
-    # 불용어처리 및 BS4클래스 리스트화
-    list_tit = []
-    list_st = []
-    list_et = []
-
-    for i in mv_tit:
-        i = str(i)
-        i = i.replace('<p class="mv_tit">', '')
-        i = i.replace('</p>', '')
-        list_tit.append(i)
-
-    for i in stime:
-        i = str(i)
-        i = i.replace('<p class="stime">', '')
-        i = i.replace('</p>', '')
-        list_st.append(i)
-
-    for i in etime:
-        i = str(i)
-        i = i.replace('<p class="etime">', '')
-        i = i.replace('</p>', '')
-        list_et.append(i)
-
-    list_len = len(list_tit)
-
-    # 날짜
-    # 가져온 태그에 '오늘'이 존재하면 현재 시간 출력, '내일'이 존재하면 내일 시간 출력
-    today = date.today()
-    tomorrow = date.today() + timedelta(1)
-
-    # 크롤링해온 데이터 임시 저장
-    # 날짜 저장
-    str_date = ''
-    if '오늘' in mdate:
-        str_date = str('오늘 ' + today.strftime('%Y-%m-%d') + '의 시간표입니다.'+'\n'+'\n')
-    elif '내일' in mdate:
-        str_date = str('내일 ' + tomorrow.strftime('%Y-%m-%d') + '의 시간표입니다.'+'\n'+'\n')
-
-    # 제목 시작 종료 메세지 저장
-    str_msg = ''
-    if list_len == 0:
-        str_msg = ('현재 상영 중인 영화가 없습니다.')
+    header = get_date_header(date_info)
+    if not titles:
+        text = "현재 상영 중인 영화가 없습니다."
     else:
-        for i in range(list_len):
-            str_msg += ('제목 : '.center(5) + list_tit[i].center(20) +'\n'
-                  +'시작 : '.center(5) + list_st[i].center(20) +'\n'
-                  +'종료 : '.center(5) + list_et[i].center(20) +'\n'+'\n')
+        text = header
+        for title, start, end in zip(titles, starts, ends):
+            text += f"제목 : {title.center(20)}\n시작 : {start.center(20)}\n종료 : {end.center(20)}\n\n"
 
-    # 저장값 txt파일로 저장
-    tit_txt = open("movie.txt", 'w')
-    tit_txt.write(str_date)
-    tit_txt.write(str_msg)
-    tit_txt.close()
+    save_to_file(text, TXT_PATH)
 
     driver.quit()
 
