@@ -7,8 +7,13 @@ import os
 
 url = 'https://www.indieartcinema.com/theater?cinemacd=000056'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TXT_PATH = os.path.join(BASE_DIR, "texts", "movie.txt")
-PICKLE_PATH = os.path.join(BASE_DIR, "df_mov.pkl")
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
+# Create data folder if it doesn't exist
+os.makedirs(DATA_DIR, exist_ok=True)
+
+TXT_PATH = os.path.join(DATA_DIR, "movie.txt")
+PICKLE_PATH = os.path.join(DATA_DIR, "df_mov.pkl")
 
 
 # Extract plain text from tag list
