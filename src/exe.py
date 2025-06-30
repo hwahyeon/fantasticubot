@@ -4,6 +4,9 @@ import pandas as pd
 token = token_number
 bot = telepot.Bot(token)
 
+
+
+
 #------------------------printer----------------------------
 
 def printer():
