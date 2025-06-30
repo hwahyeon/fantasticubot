@@ -17,13 +17,13 @@ HELP_PATH = os.path.join(TEXTS_DIR, "help.md")
 
 
 
-#------------------------printer----------------------------
-
+# Read schedule text file, return default message if not available
 def printer():
-    # file load
-    tit_txt = open("movie.txt", 'r')
-    info = tit_txt.read()
-    return info
+    try:
+        with open(TXT_PATH, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "상영표가 아직 준비되지 않았습니다."
 
 #------------------------poster---------------------------
 
