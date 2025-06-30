@@ -80,37 +80,24 @@ def crawler():
 
     driver.quit()
 
-#-------------------url of image to pickle----------------
-
+# Update poster data
 def pickle_url():
     url = 'https://www.indieartcinema.com/movie'
 
     driver = webdriver.Chrome()
     driver.get(url)
-    driver.implicitly_wait(60)
+    driver.implicitly_wait(30)
 
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     pic_tag = soup.find_all('div', class_='img')
     tit_tag = soup.find_all('div', class_='subj')
 
-    # --------------가져온 그림, 영화 제목 url tag 처리-------------
-    pic_list = []
-    tit_list = []
+    pic_list = [str(i)[27:110] for i in pic_tag]
+    tit_list = [i.text.strip() for i in tit_tag]
 
-    for i in pic_tag:
-        i = str(i)
-        i = i[27:110]
-        pic_list.append(i)
-
-    for i in tit_tag:
-        i = str(i)
-        i = re.search('">(.*)</div>', i).group(1)
-        tit_list.append(i)
-
-    # -------리스트 -> dic -> df -> pickle -----------
-    df = pd.DataFrame(data = list(zip(pic_list, tit_list)), columns=['url', 'title'])
-    df.to_pickle("df_mov.pkl")
+    df = pd.DataFrame(data=list(zip(pic_list, tit_list)), columns=['url', 'title'])
+    df.to_pickle(PICKLE_PATH)
 
     driver.quit()
 
