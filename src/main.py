@@ -1,8 +1,8 @@
 from bot import bot, handle
-from crawler import schedul
+from crawler import scheduler
 
 bot.message_loop(handle)
-schedul()
+scheduler()
 
 while True:
     pass

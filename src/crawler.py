@@ -112,9 +112,13 @@ def pickle_url():
 
     driver.quit()
 
-# ---------------------------Scheduler----------------------------
-def schedul():
+# Scheduler intervals (unit: minutes, hours)
+CRAWLER_INTERVAL_MINUTES = 70
+PICKLE_UPDATE_HOURS = 12
+
+# Start the job scheduler
+def scheduler():
     sched = BlockingScheduler()
-    sched.add_job(crawler, 'interval', minutes=70, next_run_time=datetime.now())
-    sched.add_job(pickle_url, 'interval', hours=12, next_run_time=datetime.now())
+    sched.add_job(crawler, 'interval', minutes=CRAWLER_INTERVAL_MINUTES, next_run_time=datetime.now())
+    sched.add_job(pickle_url, 'interval', hours=PICKLE_UPDATE_HOURS, next_run_time=datetime.now())
     sched.start()
