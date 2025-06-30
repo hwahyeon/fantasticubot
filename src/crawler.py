@@ -4,9 +4,12 @@ from bs4 import BeautifulSoup
 from apscheduler.schedulers.blocking import BlockingScheduler
 import re
 import pandas as pd
+import os
 
 url = 'https://www.indieartcinema.com/theater?cinemacd=000056'
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TXT_PATH = os.path.join(BASE_DIR, "texts", "movie.txt")
+PICKLE_PATH = os.path.join(BASE_DIR, "df_mov.pkl")
 
 # ---------------------------crawler----------------------------
 def crawler():
@@ -75,7 +78,6 @@ def crawler():
     tit_txt.write(str_msg)
     tit_txt.close()
 
-    # 크롬 창 종료
     driver.quit()
 
 #-------------------url of image to pickle----------------
