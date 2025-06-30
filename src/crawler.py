@@ -118,9 +118,3 @@ def schedul():
     sched.add_job(crawler, 'interval', minutes=70, next_run_time=datetime.now())
     sched.add_job(pickle_url, 'interval', hours=12, next_run_time=datetime.now())
     sched.start()
-
-#---------------------------main----------------------------
-
-schedul()
-while True:
-    pass

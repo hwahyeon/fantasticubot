@@ -48,8 +48,3 @@ def handle(msg):
         id = msg['from']['id']
         name = msg['text']
         poster(name, id)
-
-
-bot.message_loop(handle)
-while True:
-    pass
