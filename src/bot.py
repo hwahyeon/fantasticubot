@@ -16,7 +16,6 @@ TEXTS_DIR = os.path.join(BASE_DIR, "texts")
 HELP_PATH = os.path.join(TEXTS_DIR, "help.md")
 
 
-
 # Read schedule text file, return default message if not available
 def printer():
     try:
@@ -24,6 +23,7 @@ def printer():
             return f.read()
     except FileNotFoundError:
         return "상영표가 아직 준비되지 않았습니다."
+
 
 # Send movie poster by title search
 def poster(name, chat_id):
@@ -41,6 +41,7 @@ def poster(name, chat_id):
 # Load help text from file
 with open(os.path.join(HELP_PATH, "texts", "help.md"), "r", encoding="utf-8") as f:
     text = f.read()
+
 
 # Handle incoming Telegram messages
 def handle(msg):
