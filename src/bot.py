@@ -1,8 +1,13 @@
 import telepot
 import pandas as pd
+from dotenv import load_dotenv
 import os
 
-token = token_number
+load_dotenv()
+token = os.getenv("TOKEN")
+if not token:
+    raise ValueError("TOKEN is not set in the environment variables")
+
 bot = telepot.Bot(token)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
