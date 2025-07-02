@@ -4,6 +4,15 @@ This is a Telegram bot that provides the screening schedule and movie posters fo
 
 부천시 독립영화전용관 **판타스틱 큐브** 의 상영시간표와 상영 중인 영화 포스터 등을 제공하는 텔레그램 봇입니다. 텔레그램에서 `@Fantasticubot`을 검색해 바로 이용하실 수 있습니다.
 
+## Operation History
+- 2021.08 — 2022.01 : Telegram bot in operation
+
+- 2022.01 : Bot service discontinued; began working on an independent project for Indie Film Theater API
+
+- 2025.06 : Full codebase refactored
+
+- 2025.07 : Confirmed closure of Fantastic Cube, project archived; the code will be reused for other projects
+
 ## Features
 
 ### **/start**
